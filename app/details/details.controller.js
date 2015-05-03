@@ -11,6 +11,6 @@
         let vm = this;
 
         vm.urlInput = $location.search().url;
-        vm.tests = psiService.getTests();
+        vm.tests = psiService.getAllTests();
     }
 }());

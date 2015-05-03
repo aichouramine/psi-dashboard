@@ -202,15 +202,16 @@ angular.module('app').filter('unique', function () {
         var ref = new Firebase(FIREBASE_URL);
         var authData = ref.getAuth();
         var testsRef = new Firebase(FIREBASE_URL + '/users/' + authData.uid + '/tests');
+        var tests = $firebaseArray(testsRef);
 
         var psiService = {
-            get: get,
-            getTests: getTests
+            runTest: runTest,
+            getAllTests: getAllTests
         };
 
         return psiService;
 
-        function get(url) {
+        function runTest(url) {
             var strategy = 'mobile';
             var urlPath = '' + PSI_URL + '?url=' + url + '&strategy=' + strategy;
 
@@ -218,15 +219,22 @@ angular.module('app').filter('unique', function () {
                 urlPath += '&key=' + API_KEY;
             }
 
-            return $http.get(urlPath).success(function (response) {
-                return response.data;
-            }).error(function (error) {
-                console.log(error);
+            return $http.get(urlPath).then(function (response) {
+                console.log(response.data);
+                saveTestToHistory(url, response.data);
             });
         }
 
-        function getTests() {
-            return $firebaseArray(testsRef);
+        function saveTestToHistory(url, testData) {
+            tests.$add({
+                url: url,
+                timestamp: Firebase.ServerValue.TIMESTAMP,
+                test: testData
+            });
+        }
+
+        function getAllTests() {
+            return tests;
         }
     }
 })();
@@ -240,19 +248,15 @@ angular.module('app').filter('unique', function () {
     function DashboardController(psiService) {
         var vm = this;
 
-        vm.urlInput = 'http://corycode.me';
-        vm.addUrl = addUrl;
-        vm.tests = psiService.getTests();
         vm.data = '';
+        vm.urlInput = 'http://corycode.me';
+        vm.tests = psiService.getAllTests();
+        vm.addUrl = addUrl;
 
         function addUrl(isValid) {
             if (isValid) {
-                psiService.get(vm.urlInput).then(function (response) {
-                    vm.tests.$add({
-                        url: vm.urlInput,
-                        timestamp: Firebase.ServerValue.TIMESTAMP,
-                        test: response.data
-                    });
+                psiService.runTest(vm.urlInput).then(function (response) {
+                    return vm.urlInput = '';
                 });
             }
         }
@@ -269,7 +273,7 @@ angular.module('app').filter('unique', function () {
         var vm = this;
 
         vm.urlInput = $location.search().url;
-        vm.tests = psiService.getTests();
+        vm.tests = psiService.getAllTests();
     }
 })();
 (function () {

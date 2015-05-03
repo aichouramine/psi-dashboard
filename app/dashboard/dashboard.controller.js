@@ -10,20 +10,14 @@
     function DashboardController(psiService) {
         let vm = this;
 
-        vm.urlInput = 'http://corycode.me';
-        vm.addUrl = addUrl;
-        vm.tests = psiService.getTests();
         vm.data = '';
+        vm.urlInput = 'http://corycode.me';
+        vm.tests = psiService.getAllTests();
+        vm.addUrl = addUrl;
 
         function addUrl(isValid) {
             if (isValid) {
-                psiService.get(vm.urlInput).then(function(response) {
-                    vm.tests.$add({
-                        url: vm.urlInput,
-                        timestamp: Firebase.ServerValue.TIMESTAMP,
-                        test: response.data
-                    });
-                });
+                psiService.runTest(vm.urlInput).then(response => vm.urlInput = '');
             }
         }
     }

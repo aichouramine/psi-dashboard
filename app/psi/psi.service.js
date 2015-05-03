@@ -14,15 +14,16 @@
         let ref = new Firebase(FIREBASE_URL);
         let authData = ref.getAuth();
         let testsRef = new Firebase(FIREBASE_URL + '/users/' + authData.uid + '/tests');
+        let tests = $firebaseArray(testsRef);
 
         let psiService = {
-            get: get,
-            getTests: getTests
+            runTest: runTest,
+            getAllTests: getAllTests
         };
 
         return psiService;
 
-        function get(url) {
+        function runTest(url) {
             let strategy = 'mobile';
             let urlPath = `${PSI_URL}?url=${url}&strategy=${strategy}`;
 
@@ -30,17 +31,22 @@
                 urlPath += `&key=${API_KEY}`;
             }
 
-            return $http.get(urlPath).
-                success(function (response) {
-                    return response.data;
-                }).
-                error(function (error) {
-                    console.log(error);
+            return $http.get(urlPath).then(function (response) {
+                    console.log(response.data);
+                    saveTestToHistory(url, response.data);
                 });
         }
 
-        function getTests() {
-            return $firebaseArray(testsRef);
+        function saveTestToHistory(url, testData) {
+            tests.$add({
+                url: url,
+                timestamp: Firebase.ServerValue.TIMESTAMP,
+                test: testData
+            });
+        }
+
+        function getAllTests() {
+            return tests;
         }
     }
 }());
