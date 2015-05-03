@@ -1,8 +1,8 @@
 @charset "UTF-8";
 @font-face {
   font-family: 'fontello';
-  src: url("../Fonts/Fontello/font/fontello.eot?61586391");
-  src: url("../Fonts/Fontello/font/fontello.eot?61586391#iefix") format("embedded-opentype"), url("../Fonts/Fontello/font/fontello.woff?61586391") format("woff"), url("../Fonts/Fontello/font/fontello.ttf?61586391") format("truetype"), url("../Fonts/Fontello/font/fontello.svg?61586391#fontello") format("svg");
+  src: url("../../app/content/fonts/fontello/font/fontello.eot?61586391");
+  src: url("../../app/content/fonts/fontello/font/fontello.eot?61586391#iefix") format("embedded-opentype"), url("../../app/content/fonts/fontello/font/fontello.woff?61586391") format("woff"), url("../../app/content/fonts/fontello/font/fontello.ttf?61586391") format("truetype"), url("../../app/content/fonts/fontello/font/fontello.svg?61586391#fontello") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -1080,13 +1080,25 @@ a:hover {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5 {
-  display: block;
+main {
+  position: absolute;
+  top: 66px;
+  left: 0;
+  width: 100%;
+  padding: 8px;
+}
+@media screen and (min-width: 55.5em) {
+  main {
+    left: 260px;
+    top: 80px;
+    max-width: 800px;
+  }
 }
 
 h1 {
   font-size: 2em;
   line-height: 1.2em;
+  margin-bottom: 12px;
 }
 @media screen and (min-width: 600px) {
   h1 {
@@ -1094,11 +1106,29 @@ h1 {
   }
 }
 
+h2 {
+  font-size: 1.2em;
+  margin-top: 16px;
+}
 @media screen and (min-width: 600px) {
   h2 {
     font-size: 1.6em;
     margin-top: 20px;
   }
+}
+
+form {
+  margin-bottom: 24px;
+}
+
+a {
+  color: #2d2d2d;
+  cursor: pointer;
+  text-decoration: underline;
+}
+a:hover {
+  color: #2d2d2d;
+  text-decoration: none;
 }
 
 .text-center {
@@ -1119,24 +1149,237 @@ h1 {
   font-size: 22px;
 }
 
-@keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
+input[type="text"] {
+  -webkit-appearance: none;
+  padding: 9px;
+  font-size: 16px;
+  background-color: #fff;
+  margin: 0 0 24px 0;
+  border: 1px solid #929292;
+  border-radius: 0;
+  width: 100%;
+}
+
+.input-group {
+  position: relative;
+  max-height: 38px;
+  overflow: hidden;
+  border: 1px solid #404040;
+}
+.input-group input[type="text"] {
+  min-height: 18px;
+  border: 0;
+}
+.input-group button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-height: 37px;
+  border: 0;
+  padding: 7px 18px 8px 18px;
+}
+
+button {
+  background-color: #404040;
+  border: 0;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 6px 12px;
+  font-size: 1.1em;
+  color: #fff;
+  margin: 0 0 24px 0;
+}
+button:active {
+  border-bottom: 2px solid #333333;
+  background-color: #333333;
+}
+
+.fade {
+  opacity: 1;
+}
+
+.fade.ng-enter,
+.fade.ng-leave {
+  transition: all 0.5s ease;
+}
+
+.fade.ng-enter {
+  opacity: 0;
+}
+
+.fade.ng-enter-active {
+  opacity: 1;
+}
+
+.fade.ng-leave {
+  opacity: 1;
+}
+
+.fade.ng-leave-active {
+  opacity: 0;
+}
+
+/* ng-repeat */
+.repeat-animation.ng-enter-stagger,
+.repeat-animation.ng-leave-stagger,
+.repeat-animation.ng-move-stagger {
+  /* 200ms will be applied between each sucessive enter operation */
+  transition-delay: 0.1s;
+}
+
+.repeat-animation.ng-enter,
+.repeat-animation.ng-leave,
+.repeat-animation.ng-move {
+  transition: 0.3s linear all;
+}
+
+.repeat-animation.ng-leave.ng-leave-active,
+.repeat-animation.ng-enter,
+.repeat-animation.ng-move {
+  transition: 0.3s linear all;
+  opacity: 0;
+}
+
+.repeat-animation.ng-leave,
+.repeat-animation.ng-move.ng-move-active,
+.repeat-animation.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+header {
+  padding: 12px;
+  margin-bottom: 24px;
+  background: #333333;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  color: #FAF3F2;
+  border-bottom: 1px solid #1a1a1a;
+}
+@media screen and (min-width: 55.5em) {
+  header {
+    z-index: 4;
   }
 }
-/* Firefox */
-/* Safari and Chrome */
-@-webkit-keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
+
+.logo {
+  font-size: 2em;
+  line-height: 1.2em;
+  margin: 0 0 16px 0;
+}
+@media screen and (min-width: 600px) {
+  .logo {
+    font-size: 2.2em;
   }
 }
+
+.logo {
+  margin-bottom: 0;
+  text-decoration: none;
+  color: #FAF3F2;
+}
+.logo:active, .logo:focus, .logo:hover {
+  text-decoration: none;
+  color: #FAF3F2;
+}
+
+#push-wrapper {
+  position: relative;
+  z-index: 10;
+  top: 0;
+  left: 0;
+}
+
+.mask-on {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+}
+@media screen and (min-width: 55.5em) {
+  .mask-on {
+    display: none;
+  }
+}
+
+.menu-btn {
+  position: absolute;
+  top: 8px;
+  right: 2px;
+  padding: 8px;
+  font-size: 1.8em;
+  background: 0 0;
+  border: none;
+}
+@media screen and (min-width: 55.5em) {
+  .menu-btn {
+    display: none;
+  }
+}
+
+.close-menu-btn {
+  background: none;
+  border: none;
+}
+
+.nav {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 240px;
+  height: 100%;
+  left: -300px;
+  position: fixed;
+  z-index: 3;
+  background-color: #333333;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.nav .nav__link {
+  display: block;
+  padding: 13px;
+  font-size: 1.4em;
+  text-decoration: none;
+  font-weight: 300;
+  color: #fff;
+  border-bottom: 1px solid #1a1a1a;
+}
+.nav .nav__link:hover, .nav .nav__link:active, .nav .nav__link:focus {
+  background: #262626;
+}
+.nav .close-menu-btn {
+  color: #fff;
+  border: none;
+  margin-bottom: 6px;
+  padding: 10px;
+  display: block;
+  overflow: auto;
+  position: absolute;
+  font-size: 1.5em;
+  right: 0;
+}
+.nav .close-menu-btn:focus, .nav .close-menu-btn:active {
+  outline: none;
+}
+@media screen and (min-width: 55.5em) {
+  .nav {
+    position: absolute;
+    left: 0;
+    top: 65px;
+  }
+  .nav .close-menu-btn {
+    display: none;
+  }
+}
+
+.pml-open .nav {
+  left: 0;
+}
+
 .test-list {
   border-top: 1px solid #2d2d2d;
   padding: 0;
@@ -1146,4 +1389,10 @@ h1 {
   overflow: auto;
   padding: 6px;
   list-style: none;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 12px;
 }

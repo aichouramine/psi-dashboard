@@ -16,28 +16,27 @@
     <!-- Resources -->
     <link href="build/css/all.min.css?v=1.0" rel="stylesheet" />
 </head>
-<body ng-controller="BaseController as base">
+<body ng-controller="BaseController as base" ng-cloak ng-class="base.showNav ? 'pml-open' : ' '">
     <div class="container">
+        <nav class="nav push-menu-left">
+            <button ng-click="base.toggleNav()" class="close-menu-btn"><i class="icon-cancel float-right"></i></button>
+            <a href="#/dashboard" ng-show="base.isAuthenticated"  class="nav__link">Dashboard</a>
+            <a href="#/home" ng-hide="base.isAuthenticated"  class="nav__link">Home</a>
+            <a href="#/about"  class="nav__link">About</a>
+            <a href="#/account"  class="nav__link">Account</a>
+        </nav>
         <header>
-            <h1 class="float-left">Page Speed Insights App</h1>
-            <span class="float-right">{{base.provider}}</span>
-            <div class="clear-both"></div>
-            <nav>
-                <a href="#/dashboard" ng-show="base.isAuthenticated">Dashboard</a>
-                <a href="#/home" ng-hide="base.isAuthenticated">Home</a>
-                <a href="#/about">About</a>
-                <a href="#/account">Account</a>
-            </nav>
+            <a href="#/" class="logo">Page Speed Insights</a>
+            <button class="menu-btn toggle-push-left float-right" ng-click="base.toggleNav()"><i class="icon-menu"></i></button>
         </header>
-        <div class="clear-both"></div><br/>
-        <main ng-view>
-
+        <main ng-view class="fade">
         </main>
         <footer>
             <!--<a href="https://github.com/splintercode" target="_blank" class="built-by">Built by Cory Bateman</a>
             <a href="https://plus.google.com/u/0/102986296317731631979?rel=author" rel="publisher"></a>-->
         </footer>
     </div>
+    <div class="mask" ng-click="base.toggleNav()" ng-class="base.showNav ? 'mask-on' : ' '"></div>
     <script src="build/js/lib.js?v=1.0"></script>
     <script src="build/js/app.js?v=1.0"></script>
 </body>
