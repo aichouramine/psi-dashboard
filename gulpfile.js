@@ -24,7 +24,8 @@ var jsSource = [
     './app/core/unique.filter.js',
     './app/psi/psi.service.js',
     './app/dashboard/dashboard.controller.js',
-    './app/details/details.controller.js'
+    './app/details/details.controller.js',
+    './app/details/detail-history.directive.js'
 ];
 
 var specSource = [

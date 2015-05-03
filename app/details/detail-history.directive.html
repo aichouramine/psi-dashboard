@@ -1,0 +1,13 @@
+<ul class="test-list">
+    <li ng-repeat="test in vm.tests | orderBy:'date' | filter:{url: vm.url}:true" class="test-list__item">
+        <!--| filter:{url: urlInput}:true-->
+        <div class="float-left">
+            Speed Score: {{test.test.ruleGroups.SPEED.score}}/100 <br />
+            Usability Score: {{test.test.ruleGroups.USABILITY.score}}/100 <br />
+        </div>
+        <div class="float-right">
+            {{ test.timestamp | date: 'dd-MM-yyyy' }} <br />
+            <button ng-click="vm.deleteTest(test)">Delete</button>
+        </div>
+    </li>
+</ul>

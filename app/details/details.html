@@ -2,23 +2,11 @@
     <h1>Details</h1>
     <h3>{{detailsCtrl.urlInput}}</h3>
 
-    <div ng-repeat="test in detailsCtrl.tests | orderBy:'date' | filter:{url: detailsCtrl.urlInput}:true | limitTo:1">
-        Speed Score: {{test.test.ruleGroups.SPEED.score}}/100 <br />
-        Usability Score: {{test.test.ruleGroups.USABILITY.score}}/100 <br />
+    <div ng-repeat="item in detailsCtrl.tests | orderBy:'date' | filter:{url: detailsCtrl.urlInput}:true | limitTo:1">
+        Speed Score: {{item.test.ruleGroups.SPEED.score}}/100 <br />
+        Usability Score: {{item.test.ruleGroups.USABILITY.score}}/100 <br />
     </div>
-    <br />
 
     <h2>History</h2>
-    <ul class="test-list">
-        <li ng-repeat="test in detailsCtrl.tests | orderBy:'date' | filter:{url: detailsCtrl.urlInput}:true" class="test-list__item">
-            <div class="float-left">
-                Speed Score: {{test.test.ruleGroups.SPEED.score}}/100 <br />
-                Usability Score: {{test.test.ruleGroups.USABILITY.score}}/100 <br />
-            </div>
-            <div class="float-right">
-                {{ test.timestamp | date: 'dd-MM-yyyy' }} <br />
-                <button ng-click="detailsCtrl.deleteTest(test)">Delete</button>
-            </div>
-        </li>
-    </ul>
+    <detail-history tests="detailsCtrl.tests" url="detailsCtrl.urlInput"></detail-history>
 </section>
