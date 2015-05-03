@@ -20,10 +20,9 @@
                 psiService.get(vm.urlInput).then(function(response) {
                     vm.tests.$add({
                         url: vm.urlInput,
+                        timestamp: Firebase.ServerValue.TIMESTAMP,
                         test: response.data
                     });
-
-                    vm.urlInput = '';
                 });
             }
         }

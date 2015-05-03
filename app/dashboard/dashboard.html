@@ -6,5 +6,13 @@
         <button type="submit" ng-disabled="addForm.$invalid">Run Test</button>
     </form>
     <br /><hr />
-    {{dashboardCtrl.tests}}
+
+    <ul>
+        <li ng-repeat="test in dashboardCtrl.tests | orderBy:'date' | unique:'url'">
+            Url: {{test.url}} <br />
+            Speed Score: {{test.test.ruleGroups.SPEED.score}}/100 <br />
+            Usability Score: {{test.test.ruleGroups.USABILITY.score}}/100 <br />
+            Date: {{ test.timestamp | date: 'dd-MM-yyyy' }}
+        </li>
+    </ul>
 </section>

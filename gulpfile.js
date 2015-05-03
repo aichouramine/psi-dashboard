@@ -21,6 +21,7 @@ var jsSource = [
     './app/app.js',
     './app/core/auth.service.js',
     './app/core/base.controller.js',
+    './app/core/unique.filter.js',
     './app/psi/psi.service.js',
     './app/dashboard/dashboard.controller.js'
 ];
