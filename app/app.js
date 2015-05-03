@@ -13,15 +13,15 @@
         // $locationProvider.html5Mode(true);
 
         $routeProvider.when('/', {
-            templateUrl: 'app/views/home.html'
+            templateUrl: 'app/core/templates/home.html'
         });
 
         $routeProvider.when('/about', {
-            templateUrl: 'app/views/about.html'
+            templateUrl: 'app/core/templates/about.html'
         });
 
         $routeProvider.when('/account', {
-            templateUrl: 'app/views/account.html'
+            templateUrl: 'app/core/templates/account.html'
         });
 
         $routeProvider.otherwise({ redirectTo: '/' });
@@ -30,7 +30,7 @@
     app.run(['$rootScope', '$location', 'authService', function ($rootScope, $location, authService) {
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
             console.log(current);
-            if (!authService.isLoggedIn() && $location.path() === '/account') {
+            if (!authService.isLoggedIn()) {
                 // event.preventDefault();
                 $location.path('/');
                 console.log('Route Unauthenticated');

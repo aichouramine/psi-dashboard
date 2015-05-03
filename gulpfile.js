@@ -19,8 +19,9 @@ var jsLibraries = [
 
 var jsSource = [
     './app/app.js',
-    './app/auth.service.js',
-    './app/base.controller.js'
+    './app/core/auth.service.js',
+    './app/core/base.controller.js',
+    './app/psi/psi.service.js'
 ];
 
 var specSource = [

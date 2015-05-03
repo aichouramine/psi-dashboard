@@ -3,7 +3,7 @@
 
     var appControllers = angular.module('app.controllers', []);
 
-    appControllers.controller('BaseCtrl', ['$location', '$firebaseAuth', 'authService', function($location, $firebaseAuth, authService) {
+    appControllers.controller('BaseController', ['$location', '$firebaseAuth', 'authService', function($location, $firebaseAuth, authService) {
         let ref = new Firebase("https://psi-api.firebaseio.com");
         let auth = $firebaseAuth(ref);
         let authData = ref.getAuth();

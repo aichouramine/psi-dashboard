@@ -11,15 +11,15 @@
         // $locationProvider.html5Mode(true);
 
         $routeProvider.when('/', {
-            templateUrl: 'app/views/home.html'
+            templateUrl: 'app/core/templates/home.html'
         });
 
         $routeProvider.when('/about', {
-            templateUrl: 'app/views/about.html'
+            templateUrl: 'app/core/templates/about.html'
         });
 
         $routeProvider.when('/account', {
-            templateUrl: 'app/views/account.html'
+            templateUrl: 'app/core/templates/account.html'
         });
 
         $routeProvider.otherwise({ redirectTo: '/' });
@@ -28,7 +28,7 @@
     app.run(['$rootScope', '$location', 'authService', function ($rootScope, $location, authService) {
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
             console.log(current);
-            if (!authService.isLoggedIn() && $location.path() === '/account') {
+            if (!authService.isLoggedIn()) {
                 // event.preventDefault();
                 $location.path('/');
                 console.log('Route Unauthenticated');
@@ -86,7 +86,7 @@
 
     var appControllers = angular.module('app.controllers', []);
 
-    appControllers.controller('BaseCtrl', ['$location', '$firebaseAuth', 'authService', function ($location, $firebaseAuth, authService) {
+    appControllers.controller('BaseController', ['$location', '$firebaseAuth', 'authService', function ($location, $firebaseAuth, authService) {
         var ref = new Firebase('https://psi-api.firebaseio.com');
         var auth = $firebaseAuth(ref);
         var authData = ref.getAuth();
@@ -127,4 +127,25 @@
             }
         }
     }]);
+})();
+
+(function () {
+    'use strict';
+
+    angular.module('app').factory('psiService', psiService);
+
+    psiService.$inject = ['$http', '$firebaseAuth', 'FIREBASE_URL'];
+
+    function psiService($http, $firebaseAuth, FIREBASE_URL) {
+        var ref = new Firebase(FIREBASE_URL);
+        var auth = $firebaseAuth(ref);
+
+        var psiService = {
+            get: get
+        };
+
+        return authService;
+
+        function get(url) {}
+    }
 })();
