@@ -13,11 +13,11 @@
 
         let ref = new Firebase(FIREBASE_URL);
         let authData = ref.getAuth();
-        let testsRef = new Firebase(FIREBASE_URL + '/users/' + authData.uid + '/tests');
-        let tests = $firebaseArray(testsRef);
+        let tests = $firebaseArray(new Firebase(FIREBASE_URL + '/users/' + authData.uid + '/tests'));
 
         let psiService = {
             runTest: runTest,
+            deleteTest: deleteTest,
             getAllTests: getAllTests
         };
 
@@ -32,9 +32,14 @@
             }
 
             return $http.get(urlPath).then(function (response) {
-                    console.log(response.data);
                     saveTestToHistory(url, response.data);
                 });
+        }
+
+        function deleteTest(test) {
+            tests.$remove(test).then(function(ref) {
+                ref.key() === test.$id; // true
+            });
         }
 
         function saveTestToHistory(url, testData) {

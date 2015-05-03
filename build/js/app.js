@@ -201,11 +201,11 @@ angular.module('app').filter('unique', function () {
 
         var ref = new Firebase(FIREBASE_URL);
         var authData = ref.getAuth();
-        var testsRef = new Firebase(FIREBASE_URL + '/users/' + authData.uid + '/tests');
-        var tests = $firebaseArray(testsRef);
+        var tests = $firebaseArray(new Firebase(FIREBASE_URL + '/users/' + authData.uid + '/tests'));
 
         var psiService = {
             runTest: runTest,
+            deleteTest: deleteTest,
             getAllTests: getAllTests
         };
 
@@ -220,8 +220,13 @@ angular.module('app').filter('unique', function () {
             }
 
             return $http.get(urlPath).then(function (response) {
-                console.log(response.data);
                 saveTestToHistory(url, response.data);
+            });
+        }
+
+        function deleteTest(test) {
+            tests.$remove(test).then(function (ref) {
+                ref.key() === test.$id; // true
             });
         }
 
@@ -282,6 +287,8 @@ angular.module('app').filter('unique', function () {
     angular.module('app').directive('detailHistory', detailHistory);
 
     function detailHistory() {
+        DetailHistoryController.$inject = ['psiService'];
+
         var directive = {
             replace: 'true',
             restrict: 'E',
@@ -297,14 +304,12 @@ angular.module('app').filter('unique', function () {
 
         return directive;
 
-        function DetailHistoryController() {
+        function DetailHistoryController(psiService) {
             var vm = this;
             vm.deleteTest = deleteTest;
 
             function deleteTest(test) {
-                vm.tests.$remove(test).then(function (ref) {
-                    ref.key() === test.$id; // true
-                });
+                psiService.deleteTest(test);
             }
         }
     }
