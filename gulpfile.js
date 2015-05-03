@@ -13,7 +13,9 @@ var jsLibraries = [
     './app/libraries/angular/angular.min.js',
     './app/libraries/angular/angular-route.min.js',
     './app/libraries/firebase/firebase.min.js',
-    './app/libraries/firebase/angularfire.min.js'
+    './app/libraries/firebase/angularfire.min.js',
+    './app/libraries/angular-chart/chart.js',
+    './app/libraries/angular-chart/angular-chart.js',
     //'./app/pollyfills/es6-promise-pollyfill.js'
 ];
 
@@ -33,6 +35,7 @@ var specSource = [
 ];
 
 var sassSource = [
+    './app/libraries/angular-chart/angular-chart.css',
     './app/content/sass/**/*.scss'
 ];
 

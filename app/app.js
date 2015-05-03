@@ -3,7 +3,8 @@
 
     let app = angular.module('app', [
         'ngRoute',
-        'firebase'
+        'firebase',
+        'chart.js'
     ]);
 
     app.constant('FIREBASE_URL', 'https://psi-api.firebaseio.com');

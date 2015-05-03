@@ -3,7 +3,7 @@
 (function () {
     'use strict';
 
-    var app = angular.module('app', ['ngRoute', 'firebase']);
+    var app = angular.module('app', ['ngRoute', 'firebase', 'chart.js']);
 
     app.constant('FIREBASE_URL', 'https://psi-api.firebaseio.com');
 
@@ -279,6 +279,10 @@ angular.module('app').filter('unique', function () {
 
         vm.urlInput = $location.search().url;
         vm.tests = psiService.getAllTests();
+
+        vm.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+        vm.series = ['Series A', 'Series B'];
+        vm.data = [[65, 59, 80, 81, 56, 55, 40], [28, 48, 40, 19, 86, 27, 90]];
     }
 })();
 (function () {
