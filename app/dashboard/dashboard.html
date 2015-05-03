@@ -15,7 +15,7 @@
                 Usability Score: {{test.test.ruleGroups.USABILITY.score}}/100 <br />
             </div>
             <div class="float-right">
-                Date: {{ test.timestamp | date: 'dd-MM-yyyy' }} <br />
+                {{ test.timestamp | date: 'dd-MM-yyyy' }} <br />
                 <a href="#/details?url={{test.url}}" class="float-right">Details</a>
             </div>
         </li>

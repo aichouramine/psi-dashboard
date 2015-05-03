@@ -17,7 +17,7 @@
 
         let psiService = {
             get: get,
-            getTestsRef: getTestsRef
+            getTests: getTests
         };
 
         return psiService;
@@ -39,7 +39,7 @@
                 });
         }
 
-        function getTestsRef() {
+        function getTests() {
             return $firebaseArray(testsRef);
         }
     }

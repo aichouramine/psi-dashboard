@@ -12,7 +12,7 @@
 
         vm.urlInput = 'http://corycode.me';
         vm.addUrl = addUrl;
-        vm.tests = psiService.getTestsRef();
+        vm.tests = psiService.getTests();
         vm.data = '';
 
         function addUrl(isValid) {

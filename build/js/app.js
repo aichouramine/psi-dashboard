@@ -205,7 +205,7 @@ angular.module('app').filter('unique', function () {
 
         var psiService = {
             get: get,
-            getTestsRef: getTestsRef
+            getTests: getTests
         };
 
         return psiService;
@@ -225,7 +225,7 @@ angular.module('app').filter('unique', function () {
             });
         }
 
-        function getTestsRef() {
+        function getTests() {
             return $firebaseArray(testsRef);
         }
     }
@@ -242,7 +242,7 @@ angular.module('app').filter('unique', function () {
 
         vm.urlInput = 'http://corycode.me';
         vm.addUrl = addUrl;
-        vm.tests = psiService.getTestsRef();
+        vm.tests = psiService.getTests();
         vm.data = '';
 
         function addUrl(isValid) {
@@ -263,11 +263,19 @@ angular.module('app').filter('unique', function () {
 
     angular.module('app').controller('DetailsController', DetailsController);
 
-    DetailsController.$inject = ['$location'];
+    DetailsController.$inject = ['$location', 'psiService'];
 
-    function DetailsController($location) {
+    function DetailsController($location, psiService) {
         var vm = this;
 
         vm.urlInput = $location.search().url;
+        vm.tests = psiService.getTests();
+        vm.deleteTest = deleteTest;
+
+        function deleteTest(test) {
+            vm.tests.$remove(test).then(function (ref) {
+                ref.key() === test.$id; // true
+            });
+        }
     }
 })();
