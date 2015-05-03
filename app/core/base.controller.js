@@ -1,47 +1,51 @@
 (function() {
     'use strict';
 
-    var appControllers = angular.module('app.controllers', []);
+    angular
+        .module('app')
+        .controller('BaseController', BaseController);
 
-    appControllers.controller('BaseController', ['$location', '$firebaseAuth', 'authService', function($location, $firebaseAuth, authService) {
-        let ref = new Firebase("https://psi-api.firebaseio.com");
-        let auth = $firebaseAuth(ref);
+    BaseController.$inject = ['$location', '$rootScope', 'FIREBASE_URL', 'authService'];
+
+    function BaseController($location, $rootScope, FIREBASE_URL, authService) {
+        let vm = this;
+        let ref = new Firebase(FIREBASE_URL);
         let authData = ref.getAuth();
 
-        let vm = this;
-
         vm.isAuthenticated = false;
-        vm.provider = 'Not logged in.';
+        vm.provider = 'Not logged in';
         vm.login = login;
         vm.logout = logout;
+        vm.toggleNav = toggleNav;
 
         setLoggedInInfo(authData);
 
         function login(provider) {
             authService.login(provider).then(function(authData) {
                 setLoggedInInfo(authData);
-                $location.path('/account');
-            }).catch(function(error) {
-                console.log("Authentication failed:", error);
-            });
+                $location.path('/');
+            }).catch(error => console.log('Authentication failed:', error));
         }
 
         function logout() {
-            authService.logout();
-            vm.provider = 'Not logged in.';
-            vm.isAuthenticated = false;
-
             $location.path('/');
+            authService.logout();
+
+            vm.provider = 'Not logged in';
+            vm.isAuthenticated = false;
         }
 
-        function setLoggedInInfo(authData){
-            if(authData !== null && authData.uid !== null) {
+        function setLoggedInInfo(authData) {
+            if (authData !== null && authData.uid !== null) {
                 vm.provider = 'Logged in with ' + authData.provider;
                 vm.isAuthenticated = true;
-
-                console.log("Authenticated successfully with payload:", authData);
-                console.log("User " + authData.uid + " is logged in with " + authData.provider);
             }
         }
-    }]);
+
+        function toggleNav() {
+            vm.showNav = !vm.showNav;
+        }
+
+        $rootScope.$on("$locationChangeStart", () => vm.showNav = false);
+    }
 }());

@@ -21,7 +21,8 @@ var jsSource = [
     './app/app.js',
     './app/core/auth.service.js',
     './app/core/base.controller.js',
-    './app/psi/psi.service.js'
+    './app/psi/psi.service.js',
+    './app/dashboard/dashboard.controller.js'
 ];
 
 var specSource = [

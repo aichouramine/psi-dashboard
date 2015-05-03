@@ -1,0 +1,10 @@
+<h1>Dashboard</h1>
+
+<section ng-controller="DashboardController as dashboardCtrl">
+    <form name="addForm" ng-submit="dashboardCtrl.addUrl(addForm.$valid)" novalidate class="input-group">
+        <input type="text" name="name" ng-model="dashboardCtrl.urlInput" required>
+        <button type="submit" ng-disabled="addForm.$invalid">Run Test</button>
+    </form>
+    <br /><hr />
+    {{dashboardCtrl.data}}
+</section>

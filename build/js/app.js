@@ -3,7 +3,7 @@
 (function () {
     'use strict';
 
-    var app = angular.module('app', ['ngRoute', 'firebase', 'app.controllers']);
+    var app = angular.module('app', ['ngRoute', 'firebase']);
 
     app.constant('FIREBASE_URL', 'https://todo-app-core.firebaseio.com');
 
@@ -22,6 +22,10 @@
             templateUrl: 'app/core/templates/account.html'
         });
 
+        $routeProvider.when('/dashboard', {
+            templateUrl: 'app/dashboard/dashboard.html'
+        });
+
         $routeProvider.otherwise({ redirectTo: '/' });
     }]);
 
@@ -38,7 +42,6 @@
         });
     }]);
 })();
-
 (function () {
     'use strict';
 
@@ -84,68 +87,106 @@
 (function () {
     'use strict';
 
-    var appControllers = angular.module('app.controllers', []);
+    angular.module('app').controller('BaseController', BaseController);
 
-    appControllers.controller('BaseController', ['$location', '$firebaseAuth', 'authService', function ($location, $firebaseAuth, authService) {
-        var ref = new Firebase('https://psi-api.firebaseio.com');
-        var auth = $firebaseAuth(ref);
+    BaseController.$inject = ['$location', '$rootScope', 'FIREBASE_URL', 'authService'];
+
+    function BaseController($location, $rootScope, FIREBASE_URL, authService) {
+        var vm = this;
+        var ref = new Firebase(FIREBASE_URL);
         var authData = ref.getAuth();
 
-        var vm = this;
-
         vm.isAuthenticated = false;
-        vm.provider = 'Not logged in.';
+        vm.provider = 'Not logged in';
         vm.login = login;
         vm.logout = logout;
+        vm.toggleNav = toggleNav;
 
         setLoggedInInfo(authData);
 
         function login(provider) {
             authService.login(provider).then(function (authData) {
                 setLoggedInInfo(authData);
-                $location.path('/account');
+                $location.path('/');
             })['catch'](function (error) {
-                console.log('Authentication failed:', error);
+                return console.log('Authentication failed:', error);
             });
         }
 
         function logout() {
-            authService.logout();
-            vm.provider = 'Not logged in.';
-            vm.isAuthenticated = false;
-
             $location.path('/');
+            authService.logout();
+
+            vm.provider = 'Not logged in';
+            vm.isAuthenticated = false;
         }
 
         function setLoggedInInfo(authData) {
             if (authData !== null && authData.uid !== null) {
                 vm.provider = 'Logged in with ' + authData.provider;
                 vm.isAuthenticated = true;
-
-                console.log('Authenticated successfully with payload:', authData);
-                console.log('User ' + authData.uid + ' is logged in with ' + authData.provider);
             }
         }
-    }]);
-})();
 
+        function toggleNav() {
+            vm.showNav = !vm.showNav;
+        }
+
+        $rootScope.$on('$locationChangeStart', function () {
+            return vm.showNav = false;
+        });
+    }
+})();
 (function () {
     'use strict';
 
     angular.module('app').factory('psiService', psiService);
 
-    psiService.$inject = ['$http', '$firebaseAuth', 'FIREBASE_URL'];
+    psiService.$inject = ['$http'];
 
-    function psiService($http, $firebaseAuth, FIREBASE_URL) {
-        var ref = new Firebase(FIREBASE_URL);
-        var auth = $firebaseAuth(ref);
+    function psiService($http) {
+        var PSI_URL = 'https://www.googleapis.com/pagespeedonline/v2/runPagespeed';
+        var API_KEY = 'AIzaSyCEuHSeoUR2wQ86Qr8lSEAs6ykitWIts3s';
 
         var psiService = {
             get: get
         };
 
-        return authService;
+        return psiService;
 
-        function get(url) {}
+        function get(url) {
+            var strategy = 'mobile';
+            var urlPath = PSI_URL + '?url=' + url + '&strategy=' + strategy; // + '&key=' + API_KEY;
+
+            if (!(window.location.href.indexOf('localhost') > -1)) {
+                urlPath += '&key=' + API_KEY;
+            }
+
+            return $http.get(urlPath).success(function (response) {
+                return response.data;
+            }).error(function (error) {
+                console.log(error);
+            });
+        }
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('app').controller('DashboardController', DashboardController);
+
+    DashboardController.$inject = ['psiService'];
+
+    function DashboardController(psiService) {
+        var vm = this;
+
+        vm.urlInput = '';
+        vm.addUrl = addUrl;
+
+        function addUrl() {
+            psiService.get(vm.urlInput).then(function (data) {
+                vm.data = data;
+            });
+        }
     }
 })();

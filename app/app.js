@@ -3,8 +3,7 @@
 
     let app = angular.module('app', [
         'ngRoute',
-        'firebase',
-        'app.controllers'
+        'firebase'
     ]);
 
     app.constant('FIREBASE_URL', 'https://todo-app-core.firebaseio.com');
@@ -22,6 +21,10 @@
 
         $routeProvider.when('/account', {
             templateUrl: 'app/core/templates/account.html'
+        });
+
+        $routeProvider.when('/dashboard', {
+            templateUrl: 'app/dashboard/dashboard.html'
         });
 
         $routeProvider.otherwise({ redirectTo: '/' });
