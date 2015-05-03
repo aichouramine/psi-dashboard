@@ -5,14 +5,19 @@
         <input type="text" name="name" ng-model="dashboardCtrl.urlInput" required>
         <button type="submit" ng-disabled="addForm.$invalid">Run Test</button>
     </form>
-    <br /><hr />
+    <br />
 
-    <ul>
-        <li ng-repeat="test in dashboardCtrl.tests | orderBy:'date' | unique:'url'">
-            Url: {{test.url}} <br />
-            Speed Score: {{test.test.ruleGroups.SPEED.score}}/100 <br />
-            Usability Score: {{test.test.ruleGroups.USABILITY.score}}/100 <br />
-            Date: {{ test.timestamp | date: 'dd-MM-yyyy' }}
+    <ul class="test-list">
+        <li ng-repeat="test in dashboardCtrl.tests | orderBy:'date' | unique:'url'" class="test-list__item">
+            <div class="float-left">
+                Url: <strong>{{test.url}}</strong> <br />
+                Speed Score: {{test.test.ruleGroups.SPEED.score}}/100 <br />
+                Usability Score: {{test.test.ruleGroups.USABILITY.score}}/100 <br />
+            </div>
+            <div class="float-right">
+                Date: {{ test.timestamp | date: 'dd-MM-yyyy' }} <br />
+                <a href="#/details?url={{test.url}}" class="float-right">Details</a>
+            </div>
         </li>
     </ul>
 </section>

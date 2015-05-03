@@ -23,7 +23,8 @@ var jsSource = [
     './app/core/base.controller.js',
     './app/core/unique.filter.js',
     './app/psi/psi.service.js',
-    './app/dashboard/dashboard.controller.js'
+    './app/dashboard/dashboard.controller.js',
+    './app/details/details.controller.js'
 ];
 
 var specSource = [

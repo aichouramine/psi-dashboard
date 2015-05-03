@@ -6,6 +6,7 @@
  * @return {array}
  */
 angular.module('app').filter('unique', function () { // ui.filters
+    'use strict';
 
     return function (items, filterOn) {
 

@@ -27,12 +27,15 @@
             templateUrl: 'app/dashboard/dashboard.html'
         });
 
+        $routeProvider.when('/details', {
+            templateUrl: 'app/details/details.html'
+        });
+
         $routeProvider.otherwise({ redirectTo: '/' });
     }]);
 
     app.run(['$rootScope', '$location', 'authService', function ($rootScope, $location, authService) {
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
-            console.log(current);
             if (!authService.isLoggedIn()) {
                 // event.preventDefault();
                 $location.path('/');

@@ -23,7 +23,7 @@
         function login(provider) {
             authService.login(provider).then(function(authData) {
                 setLoggedInInfo(authData);
-                $location.path('/');
+                $location.path('/dashboard');
             }).catch(error => console.log('Authentication failed:', error));
         }
 

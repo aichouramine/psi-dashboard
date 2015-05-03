@@ -1123,3 +1123,13 @@ h2 {
     opacity: 1;
   }
 }
+.test-list {
+  border-top: 1px solid #2d2d2d;
+  padding: 0;
+}
+.test-list__item {
+  border-bottom: 1px solid #2d2d2d;
+  overflow: auto;
+  padding: 6px;
+  list-style: none;
+}

@@ -26,12 +26,15 @@
             templateUrl: 'app/dashboard/dashboard.html'
         });
 
+        $routeProvider.when('/details', {
+            templateUrl: 'app/details/details.html'
+        });
+
         $routeProvider.otherwise({ redirectTo: '/' });
     }]);
 
     app.run(['$rootScope', '$location', 'authService', function ($rootScope, $location, authService) {
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
-            console.log(current);
             if (!authService.isLoggedIn()) {
                 // event.preventDefault();
                 $location.path('/');
@@ -107,7 +110,7 @@
         function login(provider) {
             authService.login(provider).then(function (authData) {
                 setLoggedInInfo(authData);
-                $location.path('/');
+                $location.path('/dashboard');
             })['catch'](function (error) {
                 return console.log('Authentication failed:', error);
             });
@@ -146,6 +149,7 @@
  */
 angular.module('app').filter('unique', function () {
     // ui.filters
+    'use strict';
 
     return function (items, filterOn) {
 
@@ -252,5 +256,18 @@ angular.module('app').filter('unique', function () {
                 });
             }
         }
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('app').controller('DetailsController', DetailsController);
+
+    DetailsController.$inject = ['$location'];
+
+    function DetailsController($location) {
+        var vm = this;
+
+        vm.urlInput = $location.search().url;
     }
 })();
