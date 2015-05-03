@@ -10,13 +10,22 @@
     function DashboardController(psiService) {
         let vm = this;
 
-        vm.urlInput = '';
+        vm.urlInput = 'http://corycode.me';
         vm.addUrl = addUrl;
+        vm.tests = psiService.getTestsRef();
+        vm.data = '';
 
-        function addUrl() {
-            psiService.get(vm.urlInput).then(function(data) {
-                vm.data = data;
-            });
+        function addUrl(isValid) {
+            if (isValid) {
+                psiService.get(vm.urlInput).then(function(response) {
+                    vm.tests.$add({
+                        url: vm.urlInput,
+                        test: response.data
+                    });
+
+                    vm.urlInput = '';
+                });
+            }
         }
     }
 }());

@@ -6,7 +6,7 @@
         'firebase'
     ]);
 
-    app.constant('FIREBASE_URL', 'https://todo-app-core.firebaseio.com');
+    app.constant('FIREBASE_URL', 'https://psi-api.firebaseio.com');
 
     app.config(['$routeProvider', function($routeProvider) {
         // $locationProvider.html5Mode(true);

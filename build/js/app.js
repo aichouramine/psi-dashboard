@@ -5,7 +5,7 @@
 
     var app = angular.module('app', ['ngRoute', 'firebase']);
 
-    app.constant('FIREBASE_URL', 'https://todo-app-core.firebaseio.com');
+    app.constant('FIREBASE_URL', 'https://psi-api.firebaseio.com');
 
     app.config(['$routeProvider', function ($routeProvider) {
         // $locationProvider.html5Mode(true);
@@ -142,21 +142,26 @@
 
     angular.module('app').factory('psiService', psiService);
 
-    psiService.$inject = ['$http'];
+    psiService.$inject = ['$http', '$firebaseArray', 'FIREBASE_URL'];
 
-    function psiService($http) {
+    function psiService($http, $firebaseArray, FIREBASE_URL) {
         var PSI_URL = 'https://www.googleapis.com/pagespeedonline/v2/runPagespeed';
         var API_KEY = 'AIzaSyCEuHSeoUR2wQ86Qr8lSEAs6ykitWIts3s';
 
+        var ref = new Firebase(FIREBASE_URL);
+        var authData = ref.getAuth();
+        var testsRef = new Firebase(FIREBASE_URL + '/users/' + authData.uid + '/tests');
+
         var psiService = {
-            get: get
+            get: get,
+            getTestsRef: getTestsRef
         };
 
         return psiService;
 
         function get(url) {
             var strategy = 'mobile';
-            var urlPath = PSI_URL + '?url=' + url + '&strategy=' + strategy; // + '&key=' + API_KEY;
+            var urlPath = '' + PSI_URL + '?url=' + url + '&strategy=' + strategy;
 
             if (!(window.location.href.indexOf('localhost') > -1)) {
                 urlPath += '&key=' + API_KEY;
@@ -167,6 +172,10 @@
             }).error(function (error) {
                 console.log(error);
             });
+        }
+
+        function getTestsRef() {
+            return $firebaseArray(testsRef);
         }
     }
 })();
@@ -180,13 +189,22 @@
     function DashboardController(psiService) {
         var vm = this;
 
-        vm.urlInput = '';
+        vm.urlInput = 'http://corycode.me';
         vm.addUrl = addUrl;
+        vm.tests = psiService.getTestsRef();
+        vm.data = '';
 
-        function addUrl() {
-            psiService.get(vm.urlInput).then(function (data) {
-                vm.data = data;
-            });
+        function addUrl(isValid) {
+            if (isValid) {
+                psiService.get(vm.urlInput).then(function (response) {
+                    vm.tests.$add({
+                        url: vm.urlInput,
+                        test: response.data
+                    });
+
+                    vm.urlInput = '';
+                });
+            }
         }
     }
 })();
