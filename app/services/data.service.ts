@@ -53,7 +53,6 @@ export class DataService {
 
         this._http.get(urlPath).subscribe(response => {
             console.log(response);
-            // this._saveTest(url, response.data);
             if (this._authService.isLoggedIn()) {
                 this._firebaseRef.child(`users/${this._authUser.uid}/tests`).push(response);
             }
@@ -70,15 +69,5 @@ export class DataService {
         }
 
         return convertedArray;
-    }
-    
-    private _saveTest(url: string, data: any) {
-        // function saveTestToHistory(url, testData) {
-        //     tests.$add({
-        //         url: url,
-        //         timestamp: Firebase.ServerValue.TIMESTAMP,
-        //         test: testData
-        //     });
-        // }
     }
 }

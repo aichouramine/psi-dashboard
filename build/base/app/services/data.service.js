@@ -49,7 +49,6 @@ var DataService = (function () {
         }
         this._http.get(urlPath).subscribe(function (response) {
             console.log(response);
-            // this._saveTest(url, response.data);
             if (_this._authService.isLoggedIn()) {
                 _this._firebaseRef.child("users/" + _this._authUser.uid + "/tests").push(response);
             }
@@ -63,15 +62,6 @@ var DataService = (function () {
             }
         }
         return convertedArray;
-    };
-    DataService.prototype._saveTest = function (url, data) {
-        // function saveTestToHistory(url, testData) {
-        //     tests.$add({
-        //         url: url,
-        //         timestamp: Firebase.ServerValue.TIMESTAMP,
-        //         test: testData
-        //     });
-        // }
     };
     DataService = __decorate([
         core_1.Injectable(), 
