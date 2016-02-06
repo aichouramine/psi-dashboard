@@ -8,9 +8,10 @@
 	Logged in with {{authUser.provider}}
 </p>
 
-<ul *ngIf="focusPhases">
-	<li *ngFor="#phase of focusPhases">
-		<focus-phase [focusPhase]="phase"></focus-phase>
+<ul *ngIf="testHistory">
+	<li *ngFor="#test of testHistory">
+		<!--<focus-phase [focusPhase]="phase"></focus-phase>-->
+        {{test}}
 		<br />
 		<br />
 	</li>

@@ -18,8 +18,8 @@ var Stats = (function () {
     }
     Stats.prototype.ngOnInit = function () {
         var _this = this;
-        this._dataService.focusPhases$.subscribe(function (focusPhases) { return _this.focusPhases = focusPhases; });
-        this._dataService.loadFocusPhases();
+        this._dataService.psiHistory$.subscribe(function (testHistory) { return _this.testHistory = testHistory; });
+        this._dataService.loadPsiHistory();
         this._authService.authUser$.subscribe(function (authUser) { return _this.authUser = authUser; });
         this._authService.loadAuthUser();
     };
@@ -31,7 +31,7 @@ var Stats = (function () {
     };
     Stats = __decorate([
         core_1.Component({
-            selector: 'focus-stats',
+            selector: 'psi-stats',
             templateUrl: 'app/stats.html',
             directives: []
         }), 

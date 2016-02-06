@@ -11,7 +11,7 @@ export class AuthService {
 	private _authUserObserver: any;
 
     constructor() {
-        this._firebaseRef = new Firebase('https://focus-app.firebaseio.com/');
+        this._firebaseRef = new Firebase('https://psi-api.firebaseio.com/');
 		this.authUser$ = new Observable(observer => this._authUserObserver = observer).share();
 		this.authUser$.subscribe();
 

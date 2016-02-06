@@ -41,6 +41,7 @@ var DataService = (function () {
         }
     };
     DataService.prototype.runTest = function (url) {
+        var _this = this;
         var strategy = 'mobile';
         var urlPath = this._PSI_URL + "?url=" + url + "&strategy=" + strategy;
         if (!(window.location.href.indexOf('localhost') > -1)) {
@@ -49,6 +50,9 @@ var DataService = (function () {
         this._http.get(urlPath).subscribe(function (response) {
             console.log(response);
             // this._saveTest(url, response.data);
+            if (_this._authService.isLoggedIn()) {
+                _this._firebaseRef.child("users/" + _this._authUser.uid + "/tests").push(response);
+            }
         });
     };
     DataService.prototype._firebaseArrayToArray = function (fbArray) {

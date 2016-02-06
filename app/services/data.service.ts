@@ -54,6 +54,9 @@ export class DataService {
         this._http.get(urlPath).subscribe(response => {
             console.log(response);
             // this._saveTest(url, response.data);
+            if (this._authService.isLoggedIn()) {
+                this._firebaseRef.child(`users/${this._authUser.uid}/tests`).push(response);
+            }
         });
     }
 

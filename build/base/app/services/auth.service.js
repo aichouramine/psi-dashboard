@@ -13,7 +13,7 @@ var interfaces_1 = require('../interfaces/interfaces');
 var AuthService = (function () {
     function AuthService() {
         var _this = this;
-        this._firebaseRef = new Firebase('https://focus-app.firebaseio.com/');
+        this._firebaseRef = new Firebase('https://psi-api.firebaseio.com/');
         this.authUser$ = new Observable_1.Observable(function (observer) { return _this._authUserObserver = observer; }).share();
         this.authUser$.subscribe();
         this._firebaseRef.onAuth(function (authData) {
