@@ -1,0 +1,7 @@
+<h1>Home</h1>
+
+<form [ngFormModel]="urlTestForm" (submit)="runTest()">
+    <label for="url-input">Url</label>
+    <input ngControl="url" type="text" id="url-input"/>
+    <button type="submit" [disabled]="!urlTestForm.valid">Run</button>
+</form>
