@@ -12,9 +12,7 @@ import {Stats} from './stats';
 import {AuthUser} from './interfaces/interfaces';
 import {FocusUserImageCmp} from './components/focus-user-image.component';
 
-// Temp import all operators see issues 
-// https://github.com/ReactiveX/RxJS/issues/1010 
-// https://github.com/escardin/angular2-community-faq/blob/master/rxjs_operators.md
+// Temp import all operators see issues, https://github.com/ReactiveX/RxJS/issues/1010, https://github.com/escardin/angular2-community-faq/blob/master/rxjs_operators.md
 import 'rxjs/Rx';
 //import 'rxjs/add/operator/share'; 
 //import 'rxjs/add/operator/map';

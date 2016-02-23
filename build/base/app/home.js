@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -36,5 +37,5 @@ var Home = (function () {
         __metadata('design:paramtypes', [notification_service_1.NotificationService, common_1.FormBuilder, data_service_1.DataService])
     ], Home);
     return Home;
-})();
+}());
 exports.Home = Home;

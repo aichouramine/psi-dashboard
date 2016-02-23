@@ -1,5 +1,9 @@
 module.exports = {
     app: { baseName: 'app' },
+    server: {
+        baseDir: './',
+        proxy: ''
+    },
     sass: {
         src: ['./styles/**/*.scss'],
         lintSrc: [
@@ -11,7 +15,12 @@ module.exports = {
     },
     typescript: {
         src: ['./app/**/*.ts', './app/**/*.spec.ts'],
-        typings: ['./typings/**/*.d.ts']
+        typings: [
+            'typings/**',
+            '!node_modules',
+            '!typings/browser.d.ts',
+            '!typings/browser/**'
+        ]
     },
     images: {
         src: ['assets/images/**/*']

@@ -1,3 +1,4 @@
+"use strict";
 (function (AuthType) {
     AuthType[AuthType["TWITTER"] = 0] = "TWITTER";
     AuthType[AuthType["GITHUB"] = 1] = "GITHUB";
