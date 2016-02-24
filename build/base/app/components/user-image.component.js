@@ -9,17 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('angular2/core');
-var FocusUserImageCmp = (function () {
-    function FocusUserImageCmp() {
+var UserImageComponent = (function () {
+    function UserImageComponent() {
     }
-    FocusUserImageCmp = __decorate([
+    UserImageComponent = __decorate([
         core_1.Component({
-            selector: 'focus-user-image',
-            templateUrl: 'app/components/focus-user-image.component.html',
+            selector: 'user-image',
+            templateUrl: 'app/components/user-image.component.html',
             inputs: ['authUser']
         }), 
         __metadata('design:paramtypes', [])
-    ], FocusUserImageCmp);
-    return FocusUserImageCmp;
+    ], UserImageComponent);
+    return UserImageComponent;
 }());
-exports.FocusUserImageCmp = FocusUserImageCmp;
+exports.UserImageComponent = UserImageComponent;

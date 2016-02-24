@@ -24,7 +24,7 @@
 			<div class="logout-group">
 				<button (click)="logout()" *ngIf="authUser" class="logout-group__link">Logout</button>
 				<a [routerLink]="['./Stats']" *ngIf="!authUser" class="logout-group__link">Login</a>
-				<focus-user-image [authUser]="authUser" class="logout-group__image"></focus-user-image>
+				<user-image [authUser]="authUser" class="logout-group__image"></user-image>
 			</div>
 		</nav>
 	</div>

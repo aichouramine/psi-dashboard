@@ -41,7 +41,7 @@ focus-app {
 	}
 	
 	@media (min-width: $md-break) {
-		font-size: 3em;
+		font-size: 2.4em;
 	}
 }
 
@@ -49,7 +49,6 @@ focus-app {
 .logout-group {
 	display: block;
 	float: right;
-	padding-top: 5px;
 		
 	&__image {
 		img {

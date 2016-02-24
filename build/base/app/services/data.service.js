@@ -48,10 +48,16 @@ var DataService = (function () {
         if (!(window.location.href.indexOf('localhost') > -1)) {
             urlPath += "&key=" + this._API_KEY;
         }
-        this._http.get(urlPath).subscribe(function (response) {
-            console.log(response);
+        this._http.get(urlPath)
+            .map(function (res) { return res.json(); })
+            .subscribe(function (res) {
+            var test = {
+                url: url,
+                dateCreated: Firebase.ServerValue.TIMESTAMP,
+                data: res
+            };
             if (_this._authService.isLoggedIn()) {
-                _this._firebaseRef.child("users/" + _this._authUser.uid + "/tests").push(response);
+                _this._firebaseRef.child("users/" + _this._authUser.uid + "/tests").push(test);
             }
         });
     };

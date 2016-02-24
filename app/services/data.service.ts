@@ -3,6 +3,7 @@ import {Http} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from './auth.service';
 import {AuthUser} from '../interfaces/interfaces';
+import {PSIResponse} from '../dto/psi-response';
 
 declare let Firebase;
 
@@ -51,12 +52,19 @@ export class DataService {
             urlPath += `&key=${this._API_KEY}`;
         }
 
-        this._http.get(urlPath).subscribe(response => {
-            console.log(response);
-            if (this._authService.isLoggedIn()) {
-                this._firebaseRef.child(`users/${this._authUser.uid}/tests`).push(response);
-            }
-        });
+        this._http.get(urlPath)
+            .map(res => res.json())
+            .subscribe(res => {
+                let test = {
+                    url: url,
+                    dateCreated: Firebase.ServerValue.TIMESTAMP,
+                    data: res
+                };
+                
+                if (this._authService.isLoggedIn()) {
+                    this._firebaseRef.child(`users/${this._authUser.uid}/tests`).push(test);
+                }
+            });
     }
 
     private _firebaseArrayToArray(fbArray) {

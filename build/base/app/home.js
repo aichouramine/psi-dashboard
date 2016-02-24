@@ -19,6 +19,9 @@ var Home = (function () {
         this._dataService = _dataService;
     }
     Home.prototype.ngOnInit = function () {
+        var _this = this;
+        this._dataService.psiHistory$.subscribe(function (testHistory) { return _this.testHistory = testHistory; });
+        this._dataService.loadPsiHistory();
         this.urlTestForm = this._formBuilder.group({
             'url': ['', common_1.Validators.required]
         });

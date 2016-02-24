@@ -10,9 +10,8 @@
 
 <ul *ngIf="testHistory">
 	<li *ngFor="#test of testHistory">
-		<!--<focus-phase [focusPhase]="phase"></focus-phase>-->
-        {{test}}
-		<br />
-		<br />
+        <small>{{test.dateCreated | date}}</small> <br />
+        {{test.data.id}} <br />
+        Score: <strong>{{test.data.ruleGroups.SPEED.score}}</strong>
 	</li>
 </ul>

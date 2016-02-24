@@ -13,12 +13,17 @@ declare let Firebase;
 })
 export class Home {
     urlTestForm: any;
+    testHistory: any;
+    
     constructor(
         private _notificationService: NotificationService, 
         private _formBuilder: FormBuilder,
         private _dataService: DataService) { }
     
     ngOnInit() {
+        this._dataService.psiHistory$.subscribe(testHistory => this.testHistory = testHistory);
+        this._dataService.loadPsiHistory();
+        
         this.urlTestForm = this._formBuilder.group({
             'url': ['', Validators.required]
         });

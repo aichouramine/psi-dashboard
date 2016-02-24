@@ -19,7 +19,7 @@ var notification_service_1 = require('./services/notification.service');
 var about_1 = require('./about');
 var home_1 = require('./home');
 var stats_1 = require('./stats');
-var focus_user_image_component_1 = require('./components/focus-user-image.component');
+var user_image_component_1 = require('./components/user-image.component');
 // Temp import all operators see issues, https://github.com/ReactiveX/RxJS/issues/1010, https://github.com/escardin/angular2-community-faq/blob/master/rxjs_operators.md
 require('rxjs/Rx');
 //import 'rxjs/add/operator/share'; 
@@ -42,7 +42,7 @@ var App = (function () {
         core_1.Component({
             selector: 'psi-app',
             templateUrl: 'app/app.html',
-            directives: [router_1.RouterOutlet, router_1.RouterLink, focus_user_image_component_1.FocusUserImageCmp]
+            directives: [router_1.RouterOutlet, router_1.RouterLink, user_image_component_1.UserImageComponent]
         }),
         router_1.RouteConfig([
             { path: '/', component: home_1.Home, as: 'Home' },
