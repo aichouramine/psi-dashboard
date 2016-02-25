@@ -46,8 +46,7 @@ Temporary Items
 
 # Project Build Files
 /node_modules/*
-/.sass-cache
-/App/Content/Sass/*.css
+/typings/*
 
 # WebStorm Solution
 .idea/

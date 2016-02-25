@@ -1,1 +1,0 @@
-plato -r -d Reports -t "Cache Clear" ../../App/JavaScript/Src/ & START %~dps0\Reports\index.html

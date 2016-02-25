@@ -1,0 +1,18 @@
+<h1>Home</h1>
+
+<form [ngFormModel]="urlTestForm" (submit)="runTest()">
+    <label for="url-input">Url</label>
+    <input ngControl="url" type="text" id="url-input"/>
+    <button type="submit" [disabled]="!urlTestForm.valid">Run</button>
+</form>
+
+<br /><br />
+
+<h2>Recent Tests</h2>
+<ul *ngIf="testHistory">
+	<li *ngFor="#test of testHistory">
+        <small>{{test.dateCreated | date}}</small> <br />
+        {{test.data.id}} <br />
+        Score: <strong>{{test.data.ruleGroups.SPEED.score}}</strong>
+	</li>
+</ul>

@@ -1,0 +1,17 @@
+<div *ngIf="!authUser">
+	<p>Login to track your progress!</p>
+	<button (click)="loginTwitter()" class="btn">Login with Twitter</button>
+	<button (click)="loginGithub()" class="btn">Login with Github</button>
+</div>
+
+<p *ngIf="authUser">
+	Logged in with {{authUser.provider}}
+</p>
+
+<ul *ngIf="testHistory">
+	<li *ngFor="#test of testHistory">
+        <small>{{test.dateCreated | date}}</small> <br />
+        {{test.data.id}} <br />
+        Score: <strong>{{test.data.ruleGroups.SPEED.score}}</strong>
+	</li>
+</ul>
